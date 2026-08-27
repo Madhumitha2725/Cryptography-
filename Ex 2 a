@@ -1,0 +1,30 @@
+
+import java.util.Scanner;
+public class row{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter plaintext: ");
+        String text = sc.nextLine().replace(" ", "");
+        System.out.print("Enter key: ");
+        String key = sc.nextLine();
+        int cols = key.length();
+        int rows = (int) Math.ceil((double) text.length() / cols);
+        char[][] matrix = new char[rows][cols];
+        int k = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (k < text.length())
+                    matrix[i][j] = text.charAt(k++);
+                else
+                    matrix[i][j] = 'X';
+            }
+        }
+        System.out.println("Ciphertext:");
+        int i = 0; 
+         while (i < col) {
+         int j = 0; 
+         while (j < row) {
+         System.out.print(newarr[j][i]); 
+         j++; 
+         } i++; 
+         }
