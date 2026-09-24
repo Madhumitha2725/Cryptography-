@@ -1,51 +1,27 @@
-import java.math.BigInteger;
-import java.util.Scanner;
-public class RSA {
+import java.util.*;
+public class Ex4 {
 public static void main(String[] args) {
   Scanner sc = new Scanner(System.in);
-  // Input two prime numbers
-  System.out.print("Enter prime number p: ");
-  BigInteger p = sc.nextBigInteger();
-  System.out.print("Enter prime number q: ");
-  BigInteger q = sc.nextBigInteger();
-  // Calculate n and phi
-  BigInteger n = p.multiply(q);
-  BigInteger phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
+  System.out.print("Enter p: ");
+  int p = sc.nextInt();
+  System.out.print("Enter q: ");
+  int q = sc.nextInt();
+  int n = p * q;
+  int phi = (p - 1) * (q - 1);
   System.out.println("n = " + n);
-  System.out.println("phi(n) = " + phi);
-  // Input public exponent e
-  System.out.print("Enter public key e: ");
-  BigInteger e = sc.nextBigInteger();
-  // Calculate private key d
-  BigInteger d = e.modInverse(phi);
-  System.out.println("Public Key = (" + e + ", " + n + ")");
-  System.out.println("Private Key = (" + d + ", " + n + ")");
-  // Input message
-  sc.nextLine();
-  System.out.print("Enter message (as a number less than n): ");
-  BigInteger message = new BigInteger(sc.nextLine());
-  // ---------------- CONFIDENTIALITY ----------------
-  // Encryption using public key
-  BigInteger encrypted = message.modPow(e, n);
-  System.out.println("\n--- CONFIDENTIALITY ---");
-  System.out.println("Original Message : " + message);
-  System.out.println("Encrypted Message: " + encrypted);
-  // Decryption using private key
-  BigInteger decrypted = encrypted.modPow(d, n);
-  System.out.println("Decrypted Message: " + decrypted);
-  // ---------------- AUTHENTICATION ----------------
-  // Digital signature using private key
-  BigInteger signature = message.modPow(d, n);
-  System.out.println("\n--- AUTHENTICATION ---");
-  System.out.println("Digital Signature: " + signature);
-  // Verify signature using public key
-  BigInteger verifiedMessage = signature.modPow(e, n);
-  System.out.println("Verified Message : " + verifiedMessage);
-  if (message.equals(verifiedMessage)) {
-  System.out.println("Authentication Successful!");
-  } else {
-  System.out.println("Authentication Failed!");
-  }
+  System.out.println("phi = " + phi);
+  System.out.print("Enter e: ");
+  int e = sc.nextInt();
+  int d = 1;
+  while ((d * e) % phi != 1)
+  d++;
+  System.out.println("d="+d);
+  System.out.print("Enter message (number less than " + n + "): ");
+  int message = sc.nextInt();
+  int encrypted =(int) (Math.pow(message,e)) % n;
+  System.out.println("Encrypted message: " + encrypted);
+  int decrypted= (int) (Math.pow(encrypted,d))%n;
+  System.out.println("Decrypted message: " + decrypted);
   sc.close();
 }
-}
+} 
