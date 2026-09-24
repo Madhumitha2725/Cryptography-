@@ -1,0 +1,38 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+public class DiffieHellman {
+public static void main(String[] args) {
+  Scanner sc = new Scanner(System.in);
+  // Public values
+  System.out.print("Enter prime number (p): ");
+  BigInteger p = sc.nextBigInteger();
+  System.out.print("Enter primitive root (g): ");
+  BigInteger g = sc.nextBigInteger();
+  // Private keys
+  System.out.print("Enter private key of Alice: ");
+  BigInteger a = sc.nextBigInteger();
+  System.out.print("Enter private key of Bob: ");
+  BigInteger b = sc.nextBigInteger();
+  // Alice calculates public key
+  BigInteger A = g.modPow(a, p);
+  // Bob calculates public key
+  BigInteger B = g.modPow(b, p);
+  System.out.println("\n--- Key Exchange ---");
+  System.out.println("Alice's Public Key: " + A);
+  System.out.println("Bob's Public Key : " + B);
+  // Alice calculates shared secret
+  BigInteger secretAlice = B.modPow(a, p);
+  // Bob calculates shared secret
+  BigInteger secretBob = A.modPow(b, p);
+  System.out.println("\nAlice's Shared Secret: " + secretAlice);
+  System.out.println("Bob's Shared Secret : " + secretBob);
+  // Verify
+  if (secretAlice.equals(secretBob)) {
+  System.out.println("\nSecret Key Exchange Successful!");
+  System.out.println("Both Alice and Bob have the same secret key.");
+  } else {
+  System.out.println("\nSecret Key Exchange Failed!");
+  }
+  sc.close();
+}
+}
